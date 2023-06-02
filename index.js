@@ -12,7 +12,7 @@ if (leadsFromLocalStorage) {
   render(myLeads)
 }
 
-function render(arr) {
+const render = arr => {
   let listItems = ''
   for (let i = 0; i < arr.length; i++) {
     listItems += `
@@ -26,23 +26,21 @@ function render(arr) {
   ulEl.innerHTML = listItems
 }
 
-tabBtn.addEventListener('click', function () {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    console.log(tabs)
-
+tabBtn.addEventListener('click', () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     myLeads.push(tabs[0].url)
     localStorage.myLeads = JSON.stringify(myLeads)
     render(myLeads)
   })
 })
 
-deletBtn.addEventListener('dblclick', function () {
+deletBtn.addEventListener('dblclick', () => {
   localStorage.clear()
   myLeads = []
   render(myLeads)
 })
 
-inputBtn.addEventListener('click', function () {
+inputBtn.addEventListener('click', () => {
   myLeads.push(inputEl.value)
   inputEl.value = ''
   localStorage.myLeads = JSON.stringify(myLeads)
